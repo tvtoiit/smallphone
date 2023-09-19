@@ -1,0 +1,113 @@
+.wrapper {
+}
+
+.inner {
+}
+
+.breadcrumbs {
+    padding: 15px 0;
+}
+
+.login-texthome {
+    color: #20863d;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.text-login {
+    color: #20863d;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.grid-members {
+    width: 850px;
+    margin: 0 auto 50px;
+    display: grid;
+    grid-template-columns: 400px 450px;
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+.grid-item {
+    background: #eeeeee;
+}
+
+.grid-item__img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.para-login {
+    padding: 0 20px;
+    margin-bottom: 15px px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ff6700;
+    text-transform: uppercase;
+}
+
+.box-login {
+    padding: 0 20px;
+    list-style: none;
+    margin: 0 0 15px 0;
+}
+
+.box-item {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.box_img {
+    margin-right: 10px;
+}
+
+//Đăng nhập
+
+.box-item__login {
+    display: flex;
+    align-items: center;
+    margin-bottom: 26px;
+    list-style: none;
+}
+
+.box-item__li {
+    text-align: center;
+    padding-bottom: 10px;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #444492;
+    border-bottom: 1px solid #dddddd;
+    transition: 0.1s ease-in-out;
+}
+
+.box-item__nav {
+    text-decoration: none;
+    position: relative;
+    color: #333;
+}
+
+.active {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ff6700;
+    border-color: #ff6700;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 180px;
+        border: 1px solid #ff6700;
+        left: -50px;
+        bottom: -14px;
+    }
+}
+
+.grid-item2 {
+    padding: 30px;
+}

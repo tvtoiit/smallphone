@@ -24,7 +24,7 @@ public class UserDetailServiceSecurityImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Account account = accountRepository.findByusername(username);
+        Account account = accountRepository.findByUserName(username);
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(account.getRole().getName().trim()));
         return new User(username, account.getPassword(), authorities);
