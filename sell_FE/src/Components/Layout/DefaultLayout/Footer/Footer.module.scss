@@ -37,7 +37,6 @@
 }
 
 .footer-ct {
-    width: 1200px;
     margin: 30px 0 0 0;
     border-bottom: 1px solid #fff;
     display: flex;
@@ -93,3 +92,42 @@
 .bottom-nav__a {
     display: block;
 }
+
+/* pc */
+@media (min-width: 64em) {
+    
+}
+
+/* tablet and pc */
+@media (min-width: 63.93em) and (max-width: 77.5em) {
+
+}
+@media (max-width: 77.5em) {
+    
+}
+
+/* tablet */
+@media (min-width: 46.25em) and (max-width: 63.93em) {
+    
+}
+
+/* mobile */
+@media (max-width: 46.18em) {
+
+}
+
+/* mobile and tablet*/
+@media (max-width: 63.9em) {
+    .seomenu {
+        display: none;
+    }
+
+    .footer-ct {
+        display: block;
+    }
+
+    #footer {
+        display: none;
+    }
+}
+

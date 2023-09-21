@@ -136,7 +136,7 @@ function AddUser() {
   console.log(fullName, phoneNumber,email,address,status,createdAt,updatedAt,accountId,role);
   const [dataGetRoleAll, setDataGetRole] = useState([]);
   useEffect(() => {
-    fetch('http://34.124.192.61:8888/api/v1/role', {
+    fetch('http://localhost:8888/api/v1/role', {
       method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -155,7 +155,7 @@ function AddUser() {
 
   useEffect(() => {
     if (idUser) {
-      const apiGet = `http://34.124.192.61:8888/api/v1/user_admin/${accessToken}`;
+      const apiGet = `http://localhost:8888/api/v1/user_admin/${accessToken}`;
       fetch(apiGet, {
         method: 'GET',
           headers: {
@@ -185,7 +185,7 @@ function AddUser() {
   }, [idUser])
   let navigater = useNavigate();
   const handleUpdateUser = () => {
-      const apiUpdateUser = `http://34.124.192.61:8888/api/v1/user_admin/${idUser}`;
+      const apiUpdateUser = `http://localhost:8888/api/v1/user_admin/${idUser}`;
       const dataIdUser = {
         fullName: fullName,
         phoneNumber: phoneNumber,

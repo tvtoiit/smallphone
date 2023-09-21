@@ -11,7 +11,7 @@ function AdminUser() {
 
     useEffect(() => {
         const accessToken = localStorage.getItem('token');
-        const getUserAdmin = `http://34.124.192.61:8888/api/v1/user_admin`;
+        const getUserAdmin = `http://localhost:8888/api/v1/user_admin`;
         fetch(getUserAdmin, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
@@ -33,7 +33,7 @@ function AdminUser() {
     }
 
     const hanldeDeleteUser = (idUser) => {
-        const apiDeleteUser = `http://34.124.192.61:8888/api/v1/user_admin/${idUser}`;
+        const apiDeleteUser = `http://localhost:8888/api/v1/user_admin/${idUser}`;
         fetch(apiDeleteUser, {
             method: "DELETE",
             headers: {

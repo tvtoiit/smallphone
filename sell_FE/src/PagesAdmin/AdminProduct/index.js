@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 function AdminProduct() {
     let navigater = useNavigate();
-    const {data} = CustomApi('http://34.124.192.61:8888/api/v1/product-home');
+    const {data} = CustomApi('http://localhost:8888/api/v1/product-home');
 
     const hanldAddProduct = () => {
         navigater('/addproduct');

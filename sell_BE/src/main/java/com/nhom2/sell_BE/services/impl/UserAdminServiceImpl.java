@@ -72,6 +72,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     return ResponseEntity.ok().body(response);
   }
 
+
   @Override
   public ResponseEntity<Object> getUSerAdminByToken(String token) {
     User user = getUserOfSocket(token);
@@ -94,6 +95,8 @@ public class UserAdminServiceImpl implements UserAdminService {
   @Override
   public ResponseEntity<Object> createUSerAdmin(UserAdminRequest request) {
    Optional<User> user = userRepositories.findUserByUsernameEmail(request.getUsername(), request.getEmail());
+    
+    
     if(user.isPresent()) {
       return ResponseEntity.ok().body("Username or Email exits");
     }

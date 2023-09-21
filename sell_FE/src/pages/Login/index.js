@@ -41,7 +41,7 @@ function Login() {
                 username: email,
                 password: password
             }
-            const API = 'http://34.124.192.61:8888/api/v1/auth/signin';
+            const API = 'http://localhost:8888/api/v1/auth/signin';
             
             // Gửi POST request đến API để xác thực đăng nhập
             fetch(API, {
@@ -62,7 +62,7 @@ function Login() {
                 const accessToken = data.accessToken;
                 if (accessToken) {
                     localStorage.setItem('token', accessToken);
-                    const apiAdmin = `http://34.124.192.61:8888/api/v1/user_admin/${accessToken}`;
+                    const apiAdmin = `http://localhost:8888/api/v1/user_admin/${accessToken}`;
                     fetch(apiAdmin, {
                         method: 'GET',
                         headers: {

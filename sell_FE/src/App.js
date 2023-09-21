@@ -1,4 +1,5 @@
 import { Fragment,useState } from 'react';
+import '../src/Components/GlobalStyles/Global.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes,privateRoutes } from './Routes';
 import { DefaultLayout, DefaultLayoutAdmin } from './Components/Layout';

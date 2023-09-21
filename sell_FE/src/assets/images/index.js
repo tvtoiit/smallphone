@@ -122,6 +122,14 @@ const avatas = {
     avata: require('~/assets/images/avata.jpg')
 };
 
+const iconGiam = {
+    iconGiam: require('~/assets/images/icon_giam.svg').default,
+};
+
+const iconLogoMobile = {
+    iconMobi: require('~/assets/images/logo_1648529142.svg').default,
+};
+
 export {
     cate_btn,
     call_btn,
@@ -152,7 +160,9 @@ export {
     uses,
     imgcarts,
     delete_cart,
-    avatas
+    avatas,
+    iconGiam,
+    iconLogoMobile
 };
 
 export default images;

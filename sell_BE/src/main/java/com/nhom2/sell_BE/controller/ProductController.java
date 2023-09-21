@@ -1,8 +1,6 @@
 package com.nhom2.sell_BE.controller;
 
-import com.nhom2.sell_BE.entities.Product;
-import com.nhom2.sell_BE.payload.response.ProductResponse;
-import com.nhom2.sell_BE.repositories.ProductRepository;
+
 import com.nhom2.sell_BE.services.CommentService;
 import com.nhom2.sell_BE.services.ImageService;
 import com.nhom2.sell_BE.services.ProductService;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/v1/product-home")
@@ -24,8 +21,8 @@ public class ProductController {
     @Autowired
     private ImageService imageService;
 
-    @Autowired
-    private CommentService commentService;
+    // @Autowired
+    // private CommentService commentService;
 
 
     @GetMapping()

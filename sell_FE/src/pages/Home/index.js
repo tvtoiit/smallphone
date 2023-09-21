@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function Home() {
     const [data, setData] = useState([]);
     useEffect(() => {
-        const api = "http://34.124.192.61:8888/api/v1/product-home";
+        const api = "http://localhost:8888/api/v1/product-home";
         fetch(api)
         .then((response) => {
             if (!response) {
@@ -30,7 +30,7 @@ function Home() {
                 <img className={cx('container-img')} src={sell_item2.sell} alt="hinh ảnh 2" />
             </div>
            {data.map((item, index) => (
-                <div key={index} className={cx('products_news')}>
+            <div key={index} className={cx('products_news col')}>
                 <div className={cx('products_menu_tabs')}>
                     <div className={cx('nav-tabs')}>
                         <div className={cx('item-tab')}>
@@ -39,28 +39,25 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <div className={cx('products_item_list')}>
+                <div className={cx('products_item_list col l-12 m-12 c-12')}>
                     <div className={cx('box_product')}>
                         <div className={cx('list-slide')}>
-                           
                         {item.products.map((product, indexProduct) => (
-                        <div key={indexProduct.productId} className={cx('item-slide')}>
+                        <div key={indexProduct.productId} className={cx('item-slide l-2-4 m-4 c-6')}>
                             <div className={cx('col-sm-5ths')}>
                                 <div className={cx('cat_item')}>
-                                    <NavLink
+                                    <NavLink to={`/detail/${product.productId}`}
                                         className={cx('cat-item__a')}
                                         href={products.product}
                                         title='Điện thoại thông minh'
                                     >
                                         <div className={cx('frame_inner')}>
                                             <div  className={cx('product_image')}>
-                                                <NavLink to={`/detail/${product.productId}`}>
                                                     <img
                                                         className={cx('product-img')}
                                                         src={product.thumbnail}
                                                         alt="Điện thoại"
                                                     />
-                                                </NavLink>
                                             </div>
                                             <div className={cx('discount')}>{product.discount}%</div>
 
@@ -75,11 +72,11 @@ function Home() {
                                                 <span className={cx('price_old')}>{product.priceDiscount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                                             </div>
 
-                                            <div className={cx('sale-brief')}>
+                                            {/* <div className={cx('sale-brief')}>
                                                 <div className={cx('text-left')}>
                                                     <p>Tặng 100.000đ...</p>
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div className={cx('rate-like')}>
                                                 <div className={cx('star-rating')}>

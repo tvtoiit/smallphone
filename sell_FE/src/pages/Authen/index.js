@@ -16,7 +16,7 @@ function Authen() {
         setActiveTab(tab);
     };
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper col m-12 c-12')}>
             <div className={cx('inner')}>
                 <div className={cx('breadcrumbs')}>
                     <span className={cx('login-texthome')}>Trang chủ</span>

@@ -42,7 +42,7 @@ function Register({ onRegisterSuccess }) {
                 }
             }
     
-            const api = "http://34.124.192.61:8888/api/v1/auth/signupuser";
+            const api = "http://localhost:8888/api/v1/auth/signupuser";
             fetch(api, {
                 method: 'POST',
                 headers: {

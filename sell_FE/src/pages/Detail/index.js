@@ -49,7 +49,7 @@ function Detail() {
     }, [cart])
 
     useEffect(() => {
-        const api = `http://localhost:8888/api/v1/product-home/details/${productId}`;
+        const api = `http://localhost/api/v1/product-home/details/${productId}`;
         fetch(api)
         .then(response => {
             if (!response) {
@@ -72,8 +72,9 @@ function Detail() {
                     <div className={cx('detail-header')}>
                        {data.title}
                     </div>
-                    <div className={cx('detail-container')}>
-                        <aside className={cx('picture')}>
+                    <div className={cx('col l-12 m-12 c-12')}>
+                        <div className={cx('detail-container')}>
+                        <aside className={cx('picture col l-4 ')}>
                             <div className={cx('slide-image')}>
                                 <img src={data.thumbnail} className={cx('lSSlideOuter')} alt='ảnh chi tiết điện thoại'/>
                             </div>
@@ -92,7 +93,7 @@ function Detail() {
                             </div>
                         </aside>
     
-                        <aside className={cx('_extra')}>
+                        <aside className={cx('_extra col l-5')}>
                             <div className={cx('details_top1')}>
                                 <div className={cx('details_top')}>
                                     <div className={cx('box_top_mb')}>
@@ -153,7 +154,7 @@ function Detail() {
                                 </div>
                             </div>
                         </aside>
-                        <aside>
+                        <aside className={cx('col l-3')}>
                             <div className={cx('_characteristic')}>
                                 <div className={cx('title_box')}>
                                     <img className={cx('_characteristic_img')} src={parameters.parameter} alt='Thông số kĩ thuật'/>
@@ -203,6 +204,8 @@ function Detail() {
                                 </NavLink>
                             </div>
                         </aside>
+                        </div>
+                        
                     </div>
                 </div>
         </div>

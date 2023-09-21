@@ -2,25 +2,28 @@ import { Wrapper as WrapperPopper } from '~/Components/Popper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.scss';
+
 import classNames from 'classnames/bind';
-import images, { cate_btn, call_btn, the_row, stores, logins, proMax, avatas } from '~/assets/images';
+import images, { cate_btn, call_btn, the_row, stores, logins, proMax, avatas, iconLogoMobile } from '~/assets/images';
 import Tippy from '@tippyjs/react';
 import { useEffect, useState, useContext, Fragment } from 'react';
 import UserRoleContext from '~/pages/UserRole';
-import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Header() {
     const { checkAdmin } = useContext(UserRoleContext);
-    let navigater = useNavigate();
     const [searchResult, setSearchResult] = useState([]);
     const [isBoxVisible, setIsBoxVisible] = useState(false);
 
+    const getNumberCartLocalStorage = () => {
+        const array = JSON.parse(localStorage.getItem('cart'));
+        const number = array.reduce((acc, item) => acc + item.number, 0);
+        return number;
+    }
+
+    getNumberCartLocalStorage();
     const removeLocalStorage = () => {
-        // const Api = "";
-        // fetch(Api)
-            
         localStorage.removeItem('token');
         setIsBoxVisible(false);
     }
@@ -29,10 +32,6 @@ function Header() {
     }
 
     const hasLocalStorageData  = !!localStorage.getItem('token');
-
-    const clickHome = () => {
-        navigater('/');
-    }
     
     useEffect(() => {
         setTimeout(() => {
@@ -41,11 +40,12 @@ function Header() {
     }, []);
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('inner')}>
+            <div className={cx('inner col')}>
                 <div className={cx('menu-store')}>
                     <div className={cx('logo_site')}>
                         <NavLink to='/' className={cx('img-home')}>
-                            <img className={cx('img-home-a')} src={images.logo} alt="logo di động thông minh" />
+                            <img className={cx('img-home-a')} src={images.logo} alt="logo di động thông minh pc" />
+                            <img className={cx('img-home-a__mobi')} src={iconLogoMobile.iconMobi} alt="logo di động thông minh mobile" />
                         </NavLink>
                     </div>
                     <div className={cx('menu-center')}>
@@ -72,10 +72,11 @@ function Header() {
                                     <WrapperPopper>
                                         <div className={cx('search-result__content')}>
                                             <div className={cx('autocomplete-suggestion')}>
-                                                <NavLink className={cx('autocomplete-suggestion__a')} href="">
-                                                    <img
+                                                <NavLink className={cx('autocomplete-suggestion__a')}>
+                                                    <img 
                                                         className={cx('autocomplete-suggestion__img')}
                                                         src={proMax.max}
+                                                        alt='hinh anh'
                                                     />
                                                     <label className={cx('label-group')}>
                                                         <span>
@@ -122,7 +123,7 @@ function Header() {
 
                             <NavLink to='/cart' className={cx('store-cart')}>
                                 <img src={stores.store} alt="store" />
-                                <span className={cx('ncc')}>0</span>
+                                <span className={cx('ncc')}>{getNumberCartLocalStorage()}</span>
                             </NavLink>
 
                             <div  className={cx('login-a')}>
@@ -158,7 +159,7 @@ function Header() {
                                         </li>
                                     </ul>
                                     <hr/>
-                                    {checkAdmin == true ?
+                                    {checkAdmin === true ?
                                     <ul className={cx('menu-list')}>
                                         <li>
                                             <NavLink to= '/admin' className={cx('menu-item')}>
@@ -166,7 +167,6 @@ function Header() {
                                             </NavLink>
                                         </li>
                                     </ul> : <Fragment/>}
-                                    
                                     <hr/>
                                     <ul className={cx('menu-list')}>
                                         <li onClick={removeLocalStorage}>
