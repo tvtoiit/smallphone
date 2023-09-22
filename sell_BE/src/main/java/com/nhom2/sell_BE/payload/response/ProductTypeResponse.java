@@ -5,18 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
 public class ProductTypeResponse {
-
-    private String productTypeId;
-
-    private String name;
-
-    private List<ProductResponse> products = new ArrayList<>();
+    private String productTypeId;    
+    private String typeName;
 }

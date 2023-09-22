@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.nhom2.sell_BE.payload.request.RequestUpdateUser;
-import com.nhom2.sell_BE.payload.request.UserAdminRequest;
+import com.nhom2.sell_BE.payload.request.thiennt.RequestUpdateUser;
+import com.nhom2.sell_BE.payload.request.thiennt.UserAdminRequest;
 import com.nhom2.sell_BE.services.UserAdminService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+ @CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping(value = "/api/v1/user_admin")
 public class UserAdminController {
   @Autowired

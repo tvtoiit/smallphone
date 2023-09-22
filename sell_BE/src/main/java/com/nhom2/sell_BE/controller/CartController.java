@@ -14,9 +14,9 @@ import com.nhom2.sell_BE.services.cartService;
 @RestController
 @RequestMapping("/api/v1/cart")
 public class CartController {
+    @Autowired
     private final cartService cartService;
 
-    @Autowired
     public CartController(cartService cartService) {
         this.cartService = cartService;
     }

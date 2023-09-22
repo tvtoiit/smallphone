@@ -3,8 +3,7 @@ package com.nhom2.sell_BE.services;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.nhom2.sell_BE.payload.request.ProductAdminRequest;
+import com.nhom2.sell_BE.payload.request.thiennt.ProductAdminRequest;
 
 @Service
 public interface ProductAdminService {

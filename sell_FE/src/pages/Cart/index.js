@@ -1,4 +1,4 @@
-
+import OrderProduct from '../OrderProduct';
 import styles from './Cart.module.scss';
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 function Cart() {
     const [numberProduct, setNumberProduct] = useState(0);
     const [cart, setCart] = useState((JSON.parse(localStorage.getItem('cart'))) || []);
-
+    
     const hanldDeleteCart = (id) => {
         const updateCart = cart.filter(item => item.productId !== id);
         setCart(updateCart);
@@ -118,90 +118,7 @@ function Cart() {
                             </p>
                             
                         </div>
-
-                        <div className={cx('l-12 m-12 c-12')}>
-                            <form className={cx('formPayment')}>
-                                <h3 className={cx('h3_title')}>Thông tin mua hàng</h3>
-                                <div className={cx('content-form__cart')}>
-                                    <label className={cx('gender1')} htmlFor='gender1'>
-                                        <input type='radio' id="gender1" name="gender" value=""/>
-                                        <span className={cx('gender-span')}>Anh</span>
-                                    </label>
-                                    <label className={cx('gender1')} htmlFor='gender0'>
-                                        <input type='radio' id="gender0" name="gender" value=""/>
-                                        <span className={cx('gender-span')}>Chị</span>
-                                    </label>
-                                </div>
-                                <div className={cx('l-12')}>
-                                    <div className={cx('content-input__info')}>
-                                        <div className={cx('l-6 m-6 c-12')}>
-                                            <div className={cx('padding-input_info')}>
-                                                <input type='text' className={cx('input-form__cart')} placeholder='Họ tên'/>               
-                                            </div>
-                                        </div>
-                                        <div className={cx('l-6 m-6 c-12')}>
-                                            <div className={cx('padding-input_info')}>
-                                                <input type='text' className={cx('input-form__cart')} placeholder='Số điện thoại'/>               
-                                            </div>
-                                        </div>               
-                                    </div>
-                                    
-                                </div>
-                                <h3 className={cx('h3_title')}>Cách thức chọn mua hàng</h3>
-                                <div className={cx('typeReceive')}>
-                                    <label className={cx('gender1')} htmlFor='typeReceive0' title='Giao hàng tận nơi'>
-                                        <input type='radio' name='receive' id ='typeReceive0'/>
-                                        <span className={cx('gender-span')}>Giao tận nơi</span>
-                                    </label>
-                                    <label className={cx('gender1')} htmlFor='typeReceive1' title='Giao hàng tận nơi'>
-                                        <input type='radio' name='receive' id ='typeReceive1'/>
-                                        <span className={cx('gender-span')}>Nhận tại cữa hàng</span>
-                                    </label>
-                                </div>
-                                <div className={cx('tabReceive')}>
-                                    <div className={cx('mainTab')}>
-                                        <p className={cx('tab-title')}>Chọn địa chỉ để biết thời gian và phí vận chuyển (nếu có)</p>
-                                        <div className={cx('row_1')}>
-                                            <div className={cx('col-md-12')}>
-                                                <div className={cx('pd1')}>
-                                                    <select className={cx('pd1-select')}>
-                                                        <option>Tỉnh/ Thành phố</option>
-                                                    </select>
-                                                </div>
-                                                <div className={cx('pd1')}>
-                                                    <select className={cx('pd1-select')}>
-                                                        <option>Huyện</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className={cx('col-md-12')}>
-                                                <div className={cx('pd1')}>
-                                                    <select className={cx('pd1-select')}>
-                                                        <option>Xã</option>
-                                                    </select>
-                                                </div>
-                                                <div className={cx('pd1')}>
-                                                    <select className={cx('pd1-select')}>
-                                                        <option>Số nhà tên đường</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>                
-                                    </div>
-
-                                </div>
-                                <div className={cx('total_end')}>
-                                <span>Tổng tiền:</span>
-                                <span style={{color: '#FF6700'}}>{getPrice()}</span>                         
-                                </div>
-                                <div className={cx('btn-area')}>
-                                    <NavLink className={cx('payment-btn')}>
-                                        Đặt hàng                    
-                                    </NavLink>
-                                </div>
-                            </form>                    
-                        </div>
+                        <OrderProduct/>
                         
                     </div>
                     <span className={cx('agree')}>Bằng cách đặt hàng, bạn đồng ý với Điều khoản sử dụng của Didongthongminh</span>

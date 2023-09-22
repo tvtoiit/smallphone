@@ -49,7 +49,7 @@ function Detail() {
     }, [cart])
 
     useEffect(() => {
-        const api = `http://localhost/api/v1/product-home/details/${productId}`;
+        const api = `http://localhost:8888/api/v1/product-home/details/${productId}`;
         fetch(api)
         .then(response => {
             if (!response) {

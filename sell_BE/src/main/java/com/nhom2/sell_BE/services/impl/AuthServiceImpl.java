@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateTokenUsingUserName(loginRequest.getUsername());
 
-        var account = accountRepository.findByUserName(loginRequest.getUsername());
+        var account = accountRepository.findByusername(loginRequest.getUsername());
         revokeAllUserTokens(account);
         saveUserToken(account, jwt);
 
@@ -69,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public ApiResponse signUpUser(SignupRequest signupRequest) {
         String username = signupRequest.getUsername();
-        if (accountRepository.existsByUserName(username)) {
+        if (accountRepository.existsByusername(username)) {
             throw new DataExistException("This user with username: " + username + " already exist");
         } else {
             Account account = new Account();

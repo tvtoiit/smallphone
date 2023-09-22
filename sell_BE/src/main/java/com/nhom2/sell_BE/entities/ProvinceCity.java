@@ -31,6 +31,4 @@ public class ProvinceCity implements Serializable {
 
     @OneToMany(mappedBy="provinceCity")
     private Set<District> districts = new HashSet<>();
-
-
 }

@@ -38,7 +38,7 @@ public class productTypeServiceImpl implements productTypeIdservices {
         for (ProductType item : productType) {
             ProductTypeResponse productTypeResponse = new ProductTypeResponse();   
             productTypeResponse.setProductTypeId(item.getProductTypeId());            
-            productTypeResponse.setName(item.getName());
+            productTypeResponse.setTypeName(item.getName());
             listProductType.add(productTypeResponse);
         }
         for (Configuration item1 : configurations) {

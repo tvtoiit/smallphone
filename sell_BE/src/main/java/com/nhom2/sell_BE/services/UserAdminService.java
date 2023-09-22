@@ -2,9 +2,8 @@ package com.nhom2.sell_BE.services;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import com.nhom2.sell_BE.payload.request.RequestUpdateUser;
-import com.nhom2.sell_BE.payload.request.UserAdminRequest;
+import com.nhom2.sell_BE.payload.request.thiennt.RequestUpdateUser;
+import com.nhom2.sell_BE.payload.request.thiennt.UserAdminRequest;
 
 @Service
 public interface UserAdminService {
@@ -18,4 +17,5 @@ public interface UserAdminService {
   ResponseEntity<Object> delete(String id);
 
   ResponseEntity<Object> updateUser(String id, RequestUpdateUser request);
+
 }

@@ -39,7 +39,10 @@ public class SecurityConfig {
             "/api/v1/image/**",
             "/api/v1/cart/**",
             "/api/v1/search/**",
-            "/api/v1/producttypes"
+            "/api/v1/producttypes",
+            "/api/v1/district/**",
+            "/api/v1/wrad/**",
+            "/api/v1/province"
 
     };
 
