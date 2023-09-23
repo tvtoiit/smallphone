@@ -17,8 +17,15 @@ function OrderProduct() {
         const selectOption = event.target.value;
         setOptionProvince(selectOption);
     }
+
     const handleSelectWard = (event) => {
         setOptionWard(event.target.value);
+    }
+
+    //kiểm tra nếu district none
+    if (optionedProvince === '1234f') {
+        setOptionProvince(-1);
+        setOptionWard(-1);
     }
 
     useEffect(() => {
@@ -40,29 +47,17 @@ function OrderProduct() {
     useEffect(() => {
         const api = `http://localhost:8888/api/v1/province`;
         fetch(api)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            setProvince(data);
-        })
-        .catch(error => {
-            console.error('catch fetch', error);
-        })
+        .then(response => response.json())
+        .then(data => setProvince(data))
+        .catch(error => console.error('catch fetch', error));
     }, []);
 
     useEffect(() => {
         const api = `http://localhost:8888/api/v1/district/${optionedProvince}`;
         fetch(api)
-            .then(response => {
-                return response.json();
-            }) 
-            .then(data => {
-                setDistrict(data);
-            }) 
-            .catch(error => {
-                console.error('catch fetch', error);
-            })
+            .then(response => response.json())
+            .then(data => setDistrict(data))
+            .catch(error => console.error('catch fetch', error))
     }, [optionedProvince])
 
     
@@ -72,7 +67,7 @@ function OrderProduct() {
                 <h3 className={cx('h3_title')}>Thông tin mua hàng</h3>
                 <div className={cx('content-form__cart')}>
                     <label className={cx('gender1')} htmlFor="gender1">
-                        <input type="radio" id="gender1" name="gender" value="" />
+                        <input type="radio" checked id="gender1" name="gender" value="" />
                         <span className={cx('gender-span')}>Anh</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="gender0">
@@ -97,7 +92,7 @@ function OrderProduct() {
                 <h3 className={cx('h3_title')}>Cách thức chọn mua hàng</h3>
                 <div className={cx('typeReceive')}>
                     <label className={cx('gender1')} htmlFor="typeReceive0" title="Giao hàng tận nơi">
-                        <input type="radio" name="receive" id="typeReceive0" />
+                        <input type="radio" checked name="receive" id="typeReceive0" />
                         <span className={cx('gender-span')}>Giao tận nơi</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="typeReceive1" title="Giao hàng tận nơi">
@@ -111,34 +106,44 @@ function OrderProduct() {
                         <div className={cx('row_1')}>
                             <div className={cx('col-md-12')}>
                                 <div className={cx('pd1')}>
-                                    <select className={cx('pd1-select')} onChange={handleSelectChange} value={optionedProvince}>
-                                        {province.map((item) => (
-                                            <option key={item.provinceCityId} value={item.provinceCityId}>
-                                                {item.name}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <div className={cx('l-12 m-12 c-12')}>
+                                        <select className={cx('pd1-select')} onChange={handleSelectChange} value={optionedProvince}>
+                                           <option key={"1234f"} value={"1234f"}>Tỉnh/ Thành phố</option>
+                                           {province.map((item) => (
+                                                <option style={{padding: '5px', height: '100px'}} className={cx('pd1-select__option')} key={item.provinceCityId} value={item.provinceCityId}>
+                                                    {item.name}
+                                                </option>
+                                            ))} 
+                                        </select>
+                                    </div>
+                                    
                                 </div>
                                 <div className={cx('pd1')}>
-                                    <select className={cx('pd1-select')} onChange={handleSelectWard} value={optionWard}>
-                                        {district.map(item => (
-                                            <option key={item.districtId} value={item.districtId}>{item.name}</option>
-                                        ))}
-                                    </select>
+                                    <div className={cx('l-12 m-12 c-12')}>
+                                        <select className={cx('pd1-select')} onChange={handleSelectWard} value={optionWard}>
+                                            <option key={"1234f"} value={"1234f"}>Quận/ Huyện</option>
+                                            {district.map(item => (
+                                                <option key={item.districtId} value={item.districtId}>{item.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div className={cx('col-md-12')}>
                                 <div className={cx('pd1')}>
-                                    <select className={cx('pd1-select')}>
-                                        {ward.map(item => (
-                                            <option key={item.districtId}>{item.name}</option>
-                                        ))}
-                                    </select>
+                                    <div className={cx('l-12 m-12 c-12')}>
+                                        <select className={cx('pd1-select')}>
+                                            <option key={"1234f"} value={"1234f"}>Phường/ Xã</option>
+                                            {ward.map(item => (
+                                                <option key={item.districtId}>{item.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                                 <div className={cx('pd1')}>
-                                    <select className={cx('pd1-select')}>
-                                        <option>Số nhà tên đường</option>
-                                    </select>
+                                    <div className={cx('l-12 m-12 c-12')}>
+                                        <input className={cx('pd1-select')} placeholder='Số nhà tên đường'/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +154,7 @@ function OrderProduct() {
                     <span style={{ color: '#FF6700' }}>{123}</span>
                 </div>
                 <div className={cx('btn-area')}>
-                    <NavLink className={cx('payment-btn')}>Đặt hàng</NavLink>
+                    <NavLink to={''} className={cx('payment-btn')}>Đặt hàng</NavLink>
                 </div>
             </form>
         </div>

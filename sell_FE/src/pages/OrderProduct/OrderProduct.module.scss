@@ -31,6 +31,7 @@
     padding: 5px 20px;
     font-size: 14px;
     width: 100%;
+    outline: none;
 }
 
 .col-md-6 {
@@ -78,6 +79,7 @@
 .pd1 {
     padding: 0 5px;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .pd1-select {
@@ -88,6 +90,9 @@
     display: flex;
     align-items: center;
     outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #616161;
 }
 
 .total_end {
@@ -124,4 +129,10 @@
     text-align: center;
     color: #777;
     margin-top: 20px;
+}
+
+.pd1-select__option {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 5px;
 }

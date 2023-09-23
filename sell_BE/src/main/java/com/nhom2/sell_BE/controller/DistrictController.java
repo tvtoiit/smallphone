@@ -20,15 +20,16 @@ public class DistrictController {
     @Autowired
     private DistrictService districtService;
 
-@GetMapping("/{provinceCityId}")
-public ResponseEntity<List<DistristResponse>> getDistrictsByProvinceCityId(@PathVariable(name = "provinceCityId") String provinceCityId) {
-    // Tạo một đối tượng ProvinceCity từ provinceCityId
-    ProvinceCity provinceCity = new ProvinceCity();
-    provinceCity.setProvinceCityId(provinceCityId);
+    @GetMapping("/{provinceCityId}")
+    public ResponseEntity<List<DistristResponse>> getDistrictsByProvinceCityId(
+            @PathVariable(name = "provinceCityId") String provinceCityId) {
+        // Tạo một đối tượng ProvinceCity từ provinceCityId
+        ProvinceCity provinceCity = new ProvinceCity();
+        provinceCity.setProvinceCityId(provinceCityId);
 
-    List<DistristResponse> districtResponses = districtService.getAllDistrictsByProvinceCity(provinceCity);
+        List<DistristResponse> districtResponses = districtService.getAllDistrictsByProvinceCity(provinceCity);
 
-    return new ResponseEntity<>(districtResponses, HttpStatus.OK);
-}
+        return new ResponseEntity<>(districtResponses, HttpStatus.OK);
+    }
 
 }
