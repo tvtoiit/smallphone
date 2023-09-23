@@ -50,7 +50,6 @@ public class ProductServiceImpl implements ProductService {
             List<Product> products = productRepository.findAllByProductTypeIdWithLimit(item.getProductTypeId());
             productTypeResponses.add(setupResponse(item, products));
         }
-
         return productTypeResponses;
     }
 

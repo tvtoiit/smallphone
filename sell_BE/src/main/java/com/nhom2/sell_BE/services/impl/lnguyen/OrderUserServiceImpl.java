@@ -11,12 +11,12 @@ import com.nhom2.sell_BE.repositories.UserRepositories;
 import com.nhom2.sell_BE.services.lnguyen.OrderUserService;
 import com.nhom2.sell_BE.utils.GetUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class OrderUserServiceImpl implements OrderUserService {
 
     @Autowired
@@ -40,5 +40,20 @@ public class OrderUserServiceImpl implements OrderUserService {
         Account account = accountRepository.findByusername(new GetUserUtil().GetUserName());
         User user = userRepository.findById(account.getUser().getUserId()).orElseThrow(()->new DataNotFoundException("User does not exist"));
         return user;
+    }
+
+    @Override
+    public OrderResponse createOrder(Order order) {
+        //Lấy người dùng hiện tại
+        User user = getUser();
+
+        //Gán người dùng cho đơn hàng
+        order.setUser(user);
+
+        //Lưu đơn hàng vào trong database
+        Order savedOrder = orderRepository.save(order);
+
+        // Chuyển đổi đơn hàng thành đối tượng OrderResponse
+        return new OrderResponse(savedOrder);
     }
 }

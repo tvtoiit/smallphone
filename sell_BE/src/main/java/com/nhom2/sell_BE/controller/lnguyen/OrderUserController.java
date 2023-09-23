@@ -1,11 +1,17 @@
 package com.nhom2.sell_BE.controller.lnguyen;
 
+import com.nhom2.sell_BE.entities.Order;
+import com.nhom2.sell_BE.payload.response.lnguyen.OrderResponse;
 import com.nhom2.sell_BE.services.lnguyen.OrderUserService;
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +22,15 @@ public class OrderUserController {
     @Autowired
     private OrderUserService orderUserService;
 
-    @GetMapping("")
-    public ResponseEntity<?> getAllOrderByUser() {
-        return new ResponseEntity<>(orderUserService.getAllOrderByUser(), HttpStatus.OK);
+    @GetMapping("/{orderId}")
+    public ResponseEntity<?> getAllOrderByUser(@PathVariable(name = "user") String orderId) {
+        List<OrderResponse> getAll = orderUserService.getAllOrderByUser();
+        return new ResponseEntity<>(getAll, HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody Order order) {
+        OrderResponse createdOrder = orderUserService.createOrder(order);
+        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 }
