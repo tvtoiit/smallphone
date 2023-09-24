@@ -10,15 +10,8 @@ function Home() {
     useEffect(() => {
         const api = "http://localhost:8888/api/v1/product-home";
         fetch(api)
-        .then((response) => {
-            if (!response) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            setData(data);
-        })
+        .then((response) => response.json())
+        .then(data =>  setData(data))
         .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
         })
@@ -30,7 +23,7 @@ function Home() {
                 <img className={cx('container-img')} src={sell_item2.sell} alt="hinh ảnh 2" />
             </div>
            {data.map((item, index) => (
-            <div key={index} className={cx('products_news col')}>
+            <div key={`${item.productTypeId}_${index}`} className={cx('products_news col')}>
                 <div className={cx('products_menu_tabs')}>
                     <div className={cx('nav-tabs')}>
                         <div className={cx('item-tab')}>
@@ -43,7 +36,7 @@ function Home() {
                     <div className={cx('box_product')}>
                         <div className={cx('list-slide')}>
                         {item.products.map((product, indexProduct) => (
-                        <div key={indexProduct.productId} className={cx('item-slide l-2-4 m-4 c-6')}>
+                        <div key={product.productId} className={cx('item-slide l-2-4 m-4 c-6')}>
                             <div className={cx('col-sm-5ths')}>
                                 <div className={cx('cat_item')}>
                                     <NavLink to={`/detail/${product.productId}`}

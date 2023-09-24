@@ -9,7 +9,6 @@
     left: 0;
     right: 0;
     z-index: 9999;
-    
 }
 
 .inner {
@@ -33,11 +32,6 @@
     width: 166px;
     height: 40px;
 }
-
-// .img-home {
-//     width: 100%;
-//     height: 100%;
-// }
 
 .img-home-a {
     height: 100%;
@@ -64,12 +58,6 @@
     display: flex;
     align-items: center;
     line-height: normal;
-}
-
-.cate-btn__img {
-}
-
-.address_pc {
 }
 
 .select_city {
@@ -142,9 +130,6 @@
     padding-right: 10px;
 }
 
-.right_menu__text {
-}
-
 .address_img {
     padding-right: 8px;
 }
@@ -204,8 +189,10 @@
 
 // Tuppin
 .search-result__content {
-    height: 63px;
+    height: 100%;
     z-index: 10;
+    border-radius: 8px;
+    max-height: min((100vh - 96px) - 60px, 760px);
 }
 
 .autocomplete-suggestion {
@@ -238,6 +225,7 @@
 
 .autocomplete-suggestion__img {
     width: 50px;
+    height: 50px;
 }
 
 .label-group {
@@ -251,6 +239,7 @@
 .strong {
     font-weight: 700;
     color: #0083bf;
+    display: block;
 }
 
 .price {

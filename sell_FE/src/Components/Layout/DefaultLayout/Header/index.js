@@ -15,6 +15,7 @@ function Header() {
     const { checkAdmin } = useContext(UserRoleContext);
     const [searchResult, setSearchResult] = useState([]);
     const [isBoxVisible, setIsBoxVisible] = useState(false);
+    let [valueInputSearch, setValueInputSearch] = useState("");
 
     const getNumberCartLocalStorage = () => {
         const array = JSON.parse(localStorage.getItem('cart'));
@@ -27,17 +28,22 @@ function Header() {
         localStorage.removeItem('token');
         setIsBoxVisible(false);
     }
+
     const handleAvataClick  = () => {
         setIsBoxVisible(!isBoxVisible);
     }
 
     const hasLocalStorageData  = !!localStorage.getItem('token');
-    
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 0);
-    }, []);
+        if (valueInputSearch === "") {
+            valueInputSearch = "/none";
+        } 
+        const api = `http://localhost:8888/api/v1/search?keyword=${valueInputSearch}`;
+            fetch(api)
+            .then(response => response.json())
+            .then(data => setSearchResult(data))
+            .catch(err => console.log(err));
+    }, [valueInputSearch]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner col')}>
@@ -66,29 +72,31 @@ function Header() {
                         </div>
                         <Tippy
                             interactive
-                            visible={searchResult.length > 0}
+                            visible={searchResult.length > 0 && valueInputSearch !== ""}
                             render={(attrs) => (
                                 <div className={cx('search-result')} tabIndex="-1">
+                                    <div className={cx('search-result__content')} style={{ maxHeight: '300px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
                                     <WrapperPopper>
-                                        <div className={cx('search-result__content')}>
-                                            <div className={cx('autocomplete-suggestion')}>
-                                                <NavLink className={cx('autocomplete-suggestion__a')}>
-                                                    <img 
-                                                        className={cx('autocomplete-suggestion__img')}
-                                                        src={proMax.max}
-                                                        alt='hinh anh'
-                                                    />
-                                                    <label className={cx('label-group')}>
-                                                        <span>
-                                                            <strong className={cx('strong')}>iPhone</strong>
-                                                            12 Pro Max 128GB Cũ Đẹp
-                                                        </span>
-                                                        <span className={cx('price')}> 14.590.000đ</span>
-                                                    </label>
-                                                </NavLink>
-                                            </div>
-                                        </div>
+                                            {searchResult.map((item, index) => (
+                                                <div className={cx('autocomplete-suggestion')} key={index}>
+                                                    <NavLink to={`/detail/${item.productId}`}  className={cx('autocomplete-suggestion__a')}>
+                                                        <img 
+                                                            className={cx('autocomplete-suggestion__img')}
+                                                            src={item.thumbnail}
+                                                            alt={item.altText}
+                                                        />
+                                                        <label className={cx('label-group')}>
+                                                            <span>
+                                                                <strong className={cx('strong')}>{item.title}</strong>
+                                                                <span>{item.description}</span>
+                                                            </span>
+                                                            <span className={cx('price')}>{item.price}</span>
+                                                        </label>
+                                                    </NavLink>
+                                                </div>
+                                            ))}
                                     </WrapperPopper>
+                                        </div>
                                 </div>
                             )}
                         >
@@ -96,6 +104,8 @@ function Header() {
                                 <div className={cx('search_simple_content')}>
                                     <form id={cx('search_form_simple')}>
                                         <input
+                                            onChange={e => setValueInputSearch(e.target.value)}
+                                            value={valueInputSearch}
                                             className={cx('search_form_simple-input')}
                                             type="text"
                                             placeholder="Bạn tìm gì ở đây!"
@@ -104,6 +114,7 @@ function Header() {
                                 </div>
                             </div>
                         </Tippy>
+
                         <div className={cx('right_menu')}>
                             <div href="" className={cx('hotline_menu')}>
                                 <img className={cx('hotline_menu-img')} src={call_btn.call} alt="gọi điện" />
