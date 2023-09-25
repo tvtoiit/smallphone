@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "OrderUserServiceImpl",
+            "request": "launch",
+            "mainClass": "com.nhom2.sell_BE.services.impl.lnguyen.OrderUserServiceImpl",
+            "projectName": "sell_BE"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
