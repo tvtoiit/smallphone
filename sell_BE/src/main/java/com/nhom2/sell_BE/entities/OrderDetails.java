@@ -29,15 +29,6 @@ public class OrderDetails implements Serializable {
     @Column(name = "order_details_id", length = 36, nullable = false)
     private String orderDetailsId;
 
-    @Column(name = "user_name", length = 50, nullable = false)
-    private String userName;
-
-    @Column(name = "phone_number", length = 10, nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "address", columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci", nullable = false)
-    private String address;
-
     @Column(name = "number_product", nullable = false, length = 11)
     private int numberProduct;
 
@@ -52,7 +43,7 @@ public class OrderDetails implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "update_at", nullable = true)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateAt;
 
@@ -64,3 +55,4 @@ public class OrderDetails implements Serializable {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 }
+

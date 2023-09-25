@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -35,9 +34,6 @@ public class OrderResponse {
         for(OrderDetails item : order.getOrderDetails()){
             OrderDetailsResponse response = new OrderDetailsResponse();
             response.setOrderDetailsId(item.getOrderDetailsId());
-            response.setUserName(item.getUserName());
-            response.setPhoneNumber(item.getPhoneNumber());
-            response.setAddress(item.getAddress());
             response.setNumberProduct(item.getNumberProduct());
             response.setTotalMoney(item.getTotalMoney());
             response.setStatus(item.getStatus());

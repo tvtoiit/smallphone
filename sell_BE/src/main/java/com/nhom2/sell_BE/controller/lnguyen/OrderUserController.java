@@ -1,6 +1,8 @@
 package com.nhom2.sell_BE.controller.lnguyen;
 
 import com.nhom2.sell_BE.entities.Order;
+import com.nhom2.sell_BE.payload.request.CommentRequest;
+import com.nhom2.sell_BE.payload.request.OrderRequest;
 import com.nhom2.sell_BE.payload.response.lnguyen.OrderResponse;
 import com.nhom2.sell_BE.services.lnguyen.OrderUserService;
 
@@ -29,8 +31,14 @@ public class OrderUserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody Order order) {
-        OrderResponse createdOrder = orderUserService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    public ResponseEntity<?> createOrder(@RequestBody OrderRequest orderRequest) {
+        boolean createdOrder = orderUserService.createOrder(orderRequest);
+        String orderResult;
+        if (createdOrder) {
+             orderResult = "Thanhf cong";
+        } else {
+             orderResult = "That bai";
+        }
+        return new ResponseEntity<>(orderResult, HttpStatus.CREATED);
     }
 }
