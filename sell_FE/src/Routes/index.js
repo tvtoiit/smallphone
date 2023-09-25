@@ -7,6 +7,7 @@ import AdminOrder from '~/PagesAdmin/AdminOrder';
 import AdminProduct from '~/PagesAdmin/AdminProduct';
 import AdminUser from '~/PagesAdmin/AdminUser';
 import UpdateUser from '~/PagesAdmin/UpdateUser';
+import SuccessOrder from '~/pages/SuccessOrder';
 //public router
 
 const publicRoutes = [
@@ -14,6 +15,7 @@ const publicRoutes = [
     { path: '/authen', component: Authen },
     { path: '/detail/:productId', component: Detail },
     { path: '/cart', component: Cart },
+    { path: '/successOrder', component: SuccessOrder },
 ];
 
 const privateRoutes = [
