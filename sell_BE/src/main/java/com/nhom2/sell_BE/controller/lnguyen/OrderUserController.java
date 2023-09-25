@@ -1,7 +1,6 @@
 package com.nhom2.sell_BE.controller.lnguyen;
 
-import com.nhom2.sell_BE.entities.Order;
-import com.nhom2.sell_BE.payload.request.CommentRequest;
+
 import com.nhom2.sell_BE.payload.request.OrderRequest;
 import com.nhom2.sell_BE.payload.response.lnguyen.OrderResponse;
 import com.nhom2.sell_BE.services.lnguyen.OrderUserService;
