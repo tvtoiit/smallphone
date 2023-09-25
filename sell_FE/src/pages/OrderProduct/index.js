@@ -1,18 +1,23 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderProduct.module.scss';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState  } from 'react';
+
 
 const cx = classNames.bind(styles);
 
-function OrderProduct() {
+function OrderProduct({ totalPrice, selectedProducts }) {
+    const [phone, setPhoneNumber] = useState('');
+    const [gender, setGender] = useState('');
     const [province, setProvince] = useState([]);
     const [district, setDistrict] = useState([]);
     const [ward, setWard] = useState([]);
     const [optionedProvince, setOptionProvince] = useState();
+    const [optionDistrict, setOptionDistrict] = useState();
     const [optionWard, setOptionWard] = useState(district[0] ? district[0].districtId : '');
 
+    
     const handleSelectChange = (event) => {
         const selectOption = event.target.value;
         setOptionProvince(selectOption);
@@ -60,18 +65,78 @@ function OrderProduct() {
             .catch(error => console.error('catch fetch', error))
     }, [optionedProvince])
 
-    
+    const productsForRequest = selectedProducts.map(product => ({
+        productId: product.productId,
+        number: product.number,
+    }));
+
+    let navigate = useNavigate();
+    const accessToken = localStorage.getItem('token');
+    const handlePlaceOrder = () => {
+       
+            if (accessToken == null) {
+                console.log(accessToken);
+                navigate('/authen');
+                return;
+            }
+
+            const apiCreateOrder = "http://localhost:8888/api/v1/order-user/create";
+            const requestBody = {
+                phoneNumber: phone,
+                address: optionedProvince +'-'+ optionWard +'-'+ optionDistrict,
+                provinceId: optionedProvince,
+                gender: gender,
+                product: productsForRequest,
+            }
+            fetch(apiCreateOrder, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                  },
+                body: JSON.stringify(requestBody),
+            })
+
+
+            .then((response) => {
+                if (response.status === 201) {
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        return response.json();
+                    } else {
+                        return response.text();
+                    }
+                } 
+            })
+            .then((data) => {
+                if (data) {
+                    navigate('/successOrder');
+                }
+            })
+            .catch((error) => {
+                console.error("There was a problem with the fetch operation:", error);
+            });
+            
+        }
+
     return (
         <div className={cx('l-12 m-12 c-12')}>
             <form className={cx('formPayment')}>
                 <h3 className={cx('h3_title')}>Thông tin mua hàng</h3>
                 <div className={cx('content-form__cart')}>
                     <label className={cx('gender1')} htmlFor="gender1">
-                        <input type="radio" checked id="gender1" name="gender" value="" />
+                        <input 
+                        type="radio" 
+                        onChange={(event) => setGender(event.target.value)} 
+                        checked
+                        id="gender1" 
+                        name="gender" 
+                        value="1" 
+                        />
                         <span className={cx('gender-span')}>Anh</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="gender0">
-                        <input type="radio" id="gender0" name="gender" value="" />
+                        <input type="radio"  onChange={(event) => setGender(event.target.value)} id="gender0" name="gende" value="0" />
                         <span className={cx('gender-span')}>Chị</span>
                     </label>
                 </div>
@@ -84,7 +149,7 @@ function OrderProduct() {
                         </div>
                         <div className={cx('l-6 m-6 c-12')}>
                             <div className={cx('padding-input_info')}>
-                                <input type="text" className={cx('input-form__cart')} placeholder="Số điện thoại" />
+                                <input type="text" value={phone} onChange={(event) => setPhoneNumber(event.target.value)} className={cx('input-form__cart')} placeholder="Số điện thoại" />
                             </div>
                         </div>
                     </div>
@@ -92,7 +157,7 @@ function OrderProduct() {
                 <h3 className={cx('h3_title')}>Cách thức chọn mua hàng</h3>
                 <div className={cx('typeReceive')}>
                     <label className={cx('gender1')} htmlFor="typeReceive0" title="Giao hàng tận nơi">
-                        <input type="radio" checked name="receive" id="typeReceive0" />
+                        <input type="radio" name="receive" id="typeReceive0" />
                         <span className={cx('gender-span')}>Giao tận nơi</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="typeReceive1" title="Giao hàng tận nơi">
@@ -132,10 +197,10 @@ function OrderProduct() {
                             <div className={cx('col-md-12')}>
                                 <div className={cx('pd1')}>
                                     <div className={cx('l-12 m-12 c-12')}>
-                                        <select className={cx('pd1-select')}>
+                                        <select onChange={(e) => setOptionDistrict(e.target.value)} value={optionDistrict} className={cx('pd1-select')}>
                                             <option key={"1234f"} value={"1234f"}>Phường/ Xã</option>
                                             {ward.map(item => (
-                                                <option key={item.districtId}>{item.name}</option>
+                                                <option key={item.districtId} value={item.districtId}>{item.name}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -151,14 +216,13 @@ function OrderProduct() {
                 </div>
                 <div className={cx('total_end')}>
                     <span>Tổng tiền:</span>
-                    <span style={{ color: '#FF6700' }}>{123}</span>
+                    <span style={{ color: '#FF6700' }}>{totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                 </div>
                 <div className={cx('btn-area')}>
-                    <NavLink to={''} className={cx('payment-btn')}>Đặt hàng</NavLink>
+                    <div onClick={handlePlaceOrder} className={cx('payment-btn')}>Đặt hàng</div>
                 </div>
             </form>
         </div>
     );
 }
-
 export default OrderProduct;

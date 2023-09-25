@@ -11,25 +11,58 @@ const cx = classNames.bind(styles);
 function Cart() {
     const [numberProduct, setNumberProduct] = useState(0);
     const [cart, setCart] = useState((JSON.parse(localStorage.getItem('cart'))) || []);
-    
+    const [selectedProductId, setSelectedProductId] = useState([]);
+
     const hanldDeleteCart = (id) => {
         const updateCart = cart.filter(item => item.productId !== id);
         setCart(updateCart);
         localStorage.setItem('cart', JSON.stringify(updateCart));
     }
 
-    const getCountNumber = () => {
-        const totalQuantity = cart.reduce((accumulator, item) => accumulator + item.number, 0);
-        return totalQuantity;
-    }
+    const handleIncreaseQuantity = (productId) => {
+        const updatedCart = cart.map(item => {
+            if (item.productId === productId) {
+                const newQuantity = item.number + 1;
+                return { ...item, number: newQuantity };
+            }
+            return item;
+        });
+    
+        setCart(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
 
-    const getPrice = () => {
-        const totalPrice = cart.reduce((accumulator, item) => accumulator + item.price, 0);
-        const formattedPrice = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-        }).format(totalPrice);
-        return formattedPrice;
+    const handleDecreaseQuantity = (productId) => {
+        const updatedCart = cart.map(item => {
+            if (item.productId === productId) {
+                const newQuantity = item.number - 1;
+                if (newQuantity >= 1) {
+                    return { ...item, number: newQuantity };
+                }
+            }
+            return item;
+        });
+    
+        setCart(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
+    const selectedProducts = cart.filter(product => selectedProductId.includes(product.productId));
+
+    const totalPrice = selectedProducts.reduce((total, product) => {
+        return total + (product.price * product.number);
+    }, 0);
+
+    const totalNumber = selectedProducts.reduce((total, product) => {
+        return total + product.number;
+    }, 0)
+
+    const handleCheckboxChange = (e, productId) => {
+        if (e.target.checked) {
+            setSelectedProductId([...selectedProductId, productId]);
+        } else {
+            setSelectedProductId(selectedProductId.filter(id => id !== productId));
+        }
     }
     
     return (
@@ -54,9 +87,17 @@ function Cart() {
                             <div key={index} className={cx('product-cart1')}>
                                 <div className={cx('product-cart')}>
                                     <div className={cx('product-image')}>
-                                        <NavLink className={cx('product-image__link')}>
-                                            <img className={cx('product-image__img')} src={item.image} alt="Ảnh điện thoại"/>
-                                        </NavLink>
+                                        <div className={cx('box-content__cart')}>
+                                            <input type="checkbox" 
+                                                value={item.productId}
+                                                onChange={(e) => handleCheckboxChange(e, item.productId)}
+                                                />
+                                            <NavLink className={cx('product-image__link')}>
+                                                <img className={cx('product-image__img')} src={item.image} alt="Ảnh điện thoại"/>
+                                            </NavLink>
+
+                                        </div>
+                                        
                                         <NavLink onClick={() => hanldDeleteCart(item.productId)} className={cx('cart-btn_delete')}>
                                             <img src={delete_cart.delete} alt='Icon xóa cart'/>
                                             <span className={cx('delete_btn-text')}>Xóa</span>
@@ -80,12 +121,12 @@ function Cart() {
                                     </div>
                                     <div className={cx('product-price')}>
                                         <div className={cx('fee')}>
-                                            <p className={cx('price-item')}>{item.price * item.number}đ </p>
-                                            <del className={cx('old-price')}>{item.priceOld}đ</del>
+                                            <p className={cx('price-item')}>{(item.price * item.number).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
+                                            <del className={cx('old-price')}>{item.priceOld.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</del>
                                         </div>
                                         <div className={cx('quan')}>
                                             <div className={cx('number-input')}>
-                                                <button type='button' className={cx('down')}></button>
+                                                <button type='button' onClick={() => handleDecreaseQuantity(item.productId)} className={cx('down')}></button>
                                                 <input
                                                     type='number'
                                                     value={numberProduct !== 0 ? numberProduct : item.number} 
@@ -94,7 +135,7 @@ function Cart() {
                                                     }} 
                                                     className={cx('numbersOnly1')}
                                                 />
-                                                <button type='button' onClick={() => setNumberProduct(numberProduct !== 0 ? numberProduct + 1 : item.number + 1)} className={cx('plus')}></button>
+                                                <button type='button' onClick={() => handleIncreaseQuantity(item.productId)} className={cx('plus')}></button>
                                             </div>
                                         </div>
                                     </div>
@@ -105,8 +146,8 @@ function Cart() {
                         </div>
                         <div className={cx('total-price-products')}>
                             <p className={cx('total-price__para')}>
-                                <span className={cx('price_tam')}>Tạm tính ({getCountNumber()}) sản phẩm: </span>
-                                <span className={cx('price_tam')}>{getPrice()}</span>
+                                <span className={cx('price_tam')}>Tạm tính ({totalNumber}) sản phẩm: </span>
+                                <span className={cx('price_tam')}>{totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                             </p>
                             <p className={cx('total-price__para')}>
                                 <span className={cx('price_tam')}>Phí vận chuyển: </span>
@@ -118,7 +159,7 @@ function Cart() {
                             </p>
                             
                         </div>
-                        <OrderProduct/>
+                        <OrderProduct totalPrice={totalPrice} selectedProducts={selectedProducts} />
                         
                     </div>
                     <span className={cx('agree')}>Bằng cách đặt hàng, bạn đồng ý với Điều khoản sử dụng của Didongthongminh</span>
