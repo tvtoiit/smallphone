@@ -178,7 +178,6 @@ function Addproduct() {
         body: formData
     })
     .then((response) => {
-        console.log(response);
         if (response.ok) {
           navigater('/adminproduct');
           return response.json();
@@ -202,13 +201,7 @@ function Addproduct() {
     formData.append('productTypeId', productType);
     formData.append('configId', config);
     formData.append('description', editorHtml);
-
-  //   const formDataObject = {};
-  // formData.forEach((value, key) => {
-  //   formDataObject[key] = value;
-  // });
-
-  // console.log(formDataObject);
+    
     const apiUpdateProduct = `http://localhost:8888/api/v1/product_admin/update/${productId}`;
     const accessToken = localStorage.getItem('token');
     fetch(apiUpdateProduct, {
