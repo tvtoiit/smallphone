@@ -44,7 +44,6 @@ public class SecurityConfig {
             "/api/v1/wrad/**",
             "/api/v1/province",
             "/api/v1/order-user/**",
-            "/api/v1/order-user/create"
 
     };
 
