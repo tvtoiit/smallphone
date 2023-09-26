@@ -137,3 +137,15 @@
     color: #333;
     padding: 5px;
 }
+
+.error-message {
+    font-size: 13px;
+    color: red;
+    margin-bottom: 15px;
+    padding: 10px 12px;
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}

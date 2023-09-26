@@ -1,11 +1,9 @@
 import styles from './Authen.module.scss';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { right_arrows, log_logins, check_login } from '~/assets/images';
+import { right_arrows, log_logins, check_login } from '../../assets/images';
 import { NavLink } from 'react-router-dom';
-import Login from '~/pages/Login';
-import Register from '~/pages/Register';
+import Login from '../Login';
+import Register from '../Register';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);

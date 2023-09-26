@@ -2,7 +2,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import styles from './Detail.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect,useState } from 'react';
-import {parameters, hotIcons, checkDetails } from '~/assets/images';
+import {parameters, hotIcons, checkDetails } from '../../assets/images';
 const cx = classNames.bind(styles);
 
 function Detail() {

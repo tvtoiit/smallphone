@@ -1,7 +1,7 @@
 import styles from './Footer.module.scss';
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
-import { facebooks, youtubes, visas, master_cart, jcbs, tienmats, internet_banks, tragops } from '~/assets/images';
+import { facebooks, youtubes, visas, master_cart, jcbs, tienmats, internet_banks, tragops } from '../../../../assets/images';
 
 const cx = classNames.bind(styles);
 function Footer() {

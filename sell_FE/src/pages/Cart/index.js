@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState  } from 'react';
-import { uses, delete_cart, checkDetails } from '~/assets/images';
+import { uses, delete_cart, checkDetails } from '../../assets/images';
 
 const cx = classNames.bind(styles);
 function Cart() {

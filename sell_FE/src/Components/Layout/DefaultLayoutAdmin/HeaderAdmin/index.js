@@ -1,4 +1,4 @@
-import images from '~/assets/images';
+import images from '../../../../assets/images';
 import styles from './HeaderAdmin.module.scss';
 import classNames from 'classnames/bind';
 

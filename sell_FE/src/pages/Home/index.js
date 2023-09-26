@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
-import { sell_item, sell_item2, iphones, products, startfill } from '~/assets/images';
+import { sell_item, sell_item2, iphones, products, startfill } from '../../assets/images';
 
 const cx = classNames.bind(styles);
 function Home() {

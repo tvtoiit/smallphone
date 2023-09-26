@@ -2,7 +2,6 @@ import {useLocation} from 'react-router-dom'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect,useState, useReducer } from 'react';
-import useCustomApi from '~/CustomApi';
 import styles from './Update.module.scss';
 import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';

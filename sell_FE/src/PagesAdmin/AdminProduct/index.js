@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import CustomApi from '~/CustomApi';
+import CustomApi from '../../CustomApi';
 import styles from './AdminProduct.module.scss';
 import classNames from 'classnames/bind';
 

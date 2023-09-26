@@ -1,4 +1,4 @@
-import useCustomApi from '~/CustomApi';
+import useCustomApi from '../../CustomApi';
 import React, { useReducer, useState, useEffect} from 'react';
 import ReactQuill from 'react-quill';
 import { useNavigate, useLocation } from 'react-router-dom';

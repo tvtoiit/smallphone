@@ -1,13 +1,13 @@
-import { Wrapper as WrapperPopper } from '~/Components/Popper';
+import { Wrapper as WrapperPopper } from '../../../Popper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.scss';
 
 import classNames from 'classnames/bind';
-import images, { cate_btn, call_btn, the_row, stores, logins, proMax, avatas, iconLogoMobile } from '~/assets/images';
+import images, { cate_btn, call_btn, the_row, stores, logins, proMax, avatas, iconLogoMobile } from '../../../../assets/images';
 import Tippy from '@tippyjs/react';
 import { useEffect, useState, useContext, Fragment } from 'react';
-import UserRoleContext from '~/pages/UserRole';
+import UserRoleContext from '../../../../pages/UserRole';
 import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);

@@ -3,11 +3,18 @@ import classNames from 'classnames/bind';
 import styles from './OrderProduct.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState  } from 'react';
-
+import * as Yup from 'yup';
 
 const cx = classNames.bind(styles);
 
+
+const OrderSchema = Yup.object().shape({
+    phone: Yup.string().required('Điện thoại không được để trống '),
+})
+
 function OrderProduct({ totalPrice, selectedProducts }) {
+    const [errors, setErrors] = useState({});
+    const [errorMessageTotal, setErrorMessageToTal] = useState('');
     const [phone, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
     const [province, setProvince] = useState([]);
@@ -16,7 +23,6 @@ function OrderProduct({ totalPrice, selectedProducts }) {
     const [optionedProvince, setOptionProvince] = useState();
     const [optionDistrict, setOptionDistrict] = useState();
     const [optionWard, setOptionWard] = useState(district[0] ? district[0].districtId : '');
-
     
     const handleSelectChange = (event) => {
         const selectOption = event.target.value;
@@ -34,9 +40,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
     }
 
     useEffect(() => {
-        // Kiểm tra nếu district có ít nhất một phần tử và optionWard hiện không khớp với bất kỳ giá trị district nào
-        if (district.length > 0 && !district.some(item => item.districtId === optionWard)) {
-          // Cập nhật optionWard thành giá trị đầu tiên của district
+        if (district.length > 0 &&!district.some(item => item.districtId === optionWard)) {
           setOptionWard(district[0].districtId);
         }
       }, [district]);
@@ -72,52 +76,76 @@ function OrderProduct({ totalPrice, selectedProducts }) {
 
     let navigate = useNavigate();
     const accessToken = localStorage.getItem('token');
-    const handlePlaceOrder = () => {
-       
-            if (accessToken == null) {
-                console.log(accessToken);
-                navigate('/authen');
-                return;
+    const handlePlaceOrder = async () => {
+        try {
+          if (accessToken == null) {
+            navigate('/authen');
+            return;
+          }
+
+          if (parseFloat(totalPrice) === 0) {
+            setErrorMessageToTal('Bạn chưa chọn sản phẩm');
+            return;
+          }else if (parseFloat(totalPrice) > 0){
+            setErrorMessageToTal('');
+          }
+      
+          await OrderSchema.validate(
+            { gender, phone, province, district, ward },
+            { abortEarly: false }
+          );
+      
+          setErrors({}); // Đặt lỗi về rỗng (nếu dữ liệu hợp lệ)
+      
+          const apiCreateOrder = "http://localhost:8888/api/v1/order-user/create";
+          const requestBody = {
+            phoneNumber: phone,
+            address: `${optionedProvince}-${optionWard}-${optionDistrict}`,
+            provinceId: optionedProvince,
+            gender: gender,
+            product: productsForRequest,
+          };
+      
+          const response = await fetch(apiCreateOrder, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          });
+      
+          if (response.status === 201) {
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+              const data = await response.json();
+              if (data) {
+                navigate('/successOrder');
+              }
+            } else {
+              const data = await response.text();
+              if (data) {
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                const productsToDelete = selectedProducts;
+                const updatedCart = cart.filter((product) => !productsToDelete.some(item => item.productId === product.productId));
+
+                // Cập nhật mảng "Cart" trong localStorage
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+                navigate('/successOrder');
+              }
             }
-
-            const apiCreateOrder = "http://localhost:8888/api/v1/order-user/create";
-            const requestBody = {
-                phoneNumber: phone,
-                address: optionedProvince +'-'+ optionWard +'-'+ optionDistrict,
-                provinceId: optionedProvince,
-                gender: gender,
-                product: productsForRequest,
-            }
-            fetch(apiCreateOrder, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    "Content-Type": "application/json",
-                  },
-                body: JSON.stringify(requestBody),
-            })
-
-
-            .then((response) => {
-                if (response.status === 201) {
-                    const contentType = response.headers.get("content-type");
-                    if (contentType && contentType.includes("application/json")) {
-                        return response.json();
-                    } else {
-                        return response.text();
-                    }
-                } 
-            })
-            .then((data) => {
-                if (data) {
-                    navigate('/successOrder');
-                }
-            })
-            .catch((error) => {
-                console.error("There was a problem with the fetch operation:", error);
-            });
-            
+          }
+        } catch (error) {
+          const validationErrors = {};
+          error.inner.forEach((err) => {
+            validationErrors[err.path] = err.message;
+          });
+          setErrors(validationErrors);
+          console.error("There was a problem with the fetch operation:", error);
         }
+      };
+      
 
     return (
         <div className={cx('l-12 m-12 c-12')}>
@@ -125,14 +153,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                 <h3 className={cx('h3_title')}>Thông tin mua hàng</h3>
                 <div className={cx('content-form__cart')}>
                     <label className={cx('gender1')} htmlFor="gender1">
-                        <input 
-                        type="radio" 
-                        onChange={(event) => setGender(event.target.value)} 
-                        checked
-                        id="gender1" 
-                        name="gender" 
-                        value="1" 
-                        />
+                        <input type="radio" onChange={(event) => setGender(event.target.value)} checked id="gender1" name="gender" value="1"/>
                         <span className={cx('gender-span')}>Anh</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="gender0">
@@ -146,11 +167,13 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                             <div className={cx('padding-input_info')}>
                                 <input type="text" className={cx('input-form__cart')} placeholder="Họ tên" />
                             </div>
+                            {errors.fullname && <div className={cx('error-message')}>{errors.fullname}</div>}
                         </div>
                         <div className={cx('l-6 m-6 c-12')}>
                             <div className={cx('padding-input_info')}>
                                 <input type="text" value={phone} onChange={(event) => setPhoneNumber(event.target.value)} className={cx('input-form__cart')} placeholder="Số điện thoại" />
                             </div>
+                            {errors.phone && <div className={cx('error-message')}>{errors.phone}</div>}
                         </div>
                     </div>
                 </div>
@@ -180,8 +203,8 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                                                 </option>
                                             ))} 
                                         </select>
+                                       
                                     </div>
-                                    
                                 </div>
                                 <div className={cx('pd1')}>
                                     <div className={cx('l-12 m-12 c-12')}>
@@ -191,6 +214,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                                                 <option key={item.districtId} value={item.districtId}>{item.name}</option>
                                             ))}
                                         </select>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +227,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                                                 <option key={item.districtId} value={item.districtId}>{item.name}</option>
                                             ))}
                                         </select>
+                                        
                                     </div>
                                 </div>
                                 <div className={cx('pd1')}>
@@ -218,6 +243,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
                     <span>Tổng tiền:</span>
                     <span style={{ color: '#FF6700' }}>{totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                 </div>
+                {errorMessageTotal && <div className={cx('error-message')}>{errorMessageTotal}</div>}
                 <div className={cx('btn-area')}>
                     <div onClick={handlePlaceOrder} className={cx('payment-btn')}>Đặt hàng</div>
                 </div>

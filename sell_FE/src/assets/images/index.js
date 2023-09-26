@@ -1,133 +1,133 @@
 const images = {
-    logo: require('~/assets/images/logo.svg').default,
+    logo: require('../images/logo.svg').default,
 };
 
 const cate_btn = {
-    cate: require('~/assets/images/cate-btn.svg').default,
+    cate: require('../images/cate-btn.svg').default,
 };
 
 const call_btn = {
-    call: require('~/assets/images/call.svg').default,
+    call: require('../images/call.svg').default,
 };
 
 const the_row = {
-    row: require('~/assets/images/the-row.svg').default,
+    row: require('../images/the-row.svg').default,
 };
 
 const stores = {
-    store: require('~/assets/images/store.svg').default,
+    store: require('../images/store.svg').default,
 };
 
 const logins = {
-    login: require('~/assets/images/login.svg').default,
+    login: require('../images/login.svg').default,
 };
 
 const sell_item = {
-    sell: require('~/assets/images/sell_item.webp'),
+    sell: require('../images/sell_item.webp'),
 };
 
 const sell_item2 = {
-    sell: require('~/assets/images/sell_item2.webp'),
+    sell: require('../images/sell_item2.webp'),
 };
 
 const proMax = {
-    max: require('~/assets/images/12_PRO_MAX.jpg'),
+    max: require('../images/12_PRO_MAX.jpg'),
 };
 
 const iphones = {
-    iphone: require('~/assets/images/Iphone.svg').default,
+    iphone: require('../images/Iphone.svg').default,
 };
 
 const products = {
-    product: require('~/assets/images/product1.jpg'),
+    product: require('../images/product1.jpg'),
 };
 
 const startfill = {
-    start: require('~/assets/images/star-fill.png'),
+    start: require('../images/star-fill.png'),
 };
 
 const facebooks = {
-    facebook: require('~/assets/images/facebook.svg').default,
+    facebook: require('../images/facebook.svg').default,
 };
 
 const youtubes = {
-    youtube: require('~/assets/images/youtube.svg').default,
+    youtube: require('../images/youtube.svg').default,
 };
 
 const visas = {
-    visa: require('~/assets/images/visa.svg').default,
+    visa: require('../images/visa.svg').default,
 };
 
 const master_cart = {
-    master: require('~/assets/images/master_cart.svg').default,
+    master: require('../images/master_cart.svg').default,
 };
 
 const jcbs = {
-    jcb: require('~/assets/images/jcb.svg').default,
+    jcb: require('../images/jcb.svg').default,
 };
 
 const tienmats = {
-    tienmat: require('~/assets/images/tienmat.svg').default,
+    tienmat: require('../images/tienmat.svg').default,
 };
 
 const internet_banks = {
-    internet: require('~/assets/images/internet_bank.svg').default,
+    internet: require('../images/internet_bank.svg').default,
 };
 
 const tragops = {
-    tragop: require('~/assets/images/tragop.svg').default,
+    tragop: require('../images/tragop.svg').default,
 };
 
 const right_arrows = {
-    right_arrow: require('~/assets/images/right_arrow.png'),
+    right_arrow: require('../images/right_arrow.png'),
 };
 
 const log_logins = {
-    logs: require('~/assets/images/log_login.svg').default,
+    logs: require('../images/log_login.svg').default,
 };
 
 const check_login = {
-    check: require('~/assets/images/check_login.svg').default,
+    check: require('../images/check_login.svg').default,
 };
 
 const parameters = {
-    parameter: require('~/assets/images/parameter.svg').default
+    parameter: require('../images/parameter.svg').default
 };
 
 const hotIcons = {
-    icon: require('~/assets/images/hot_icon.svg').default
+    icon: require('../images/hot_icon.svg').default
 };
 
 const details = {
-    detail: require('~/assets/images/detail.jpg')
+    detail: require('../images/detail.jpg')
 };
 
 const checkDetails = {
-    check: require('~/assets/images/checkDetail.svg').default
+    check: require('../images/checkDetail.svg').default
 };
 
 const uses = {
-    use: require('~/assets/images/user.svg').default
+    use: require('../images/user.svg').default
 };
 
 const imgcarts = {
-    cart: require('~/assets/images/imgcart.jpeg'),
+    cart: require('../images/imgcart.jpeg'),
 };
 
 const delete_cart = {
-    delete: require('~/assets/images/delete_cart.svg').default,
+    delete: require('../images/delete_cart.svg').default,
 };
 
 const avatas = {
-    avata: require('~/assets/images/avata.jpg')
+    avata: require('../images/avata.jpg')
 };
 
 const iconGiam = {
-    iconGiam: require('~/assets/images/icon_giam.svg').default,
+    iconGiam: require('../images/icon_giam.svg').default,
 };
 
 const iconLogoMobile = {
-    iconMobi: require('~/assets/images/logo_1648529142.svg').default,
+    iconMobi: require('../images/logo_1648529142.svg').default,
 };
 
 export {
