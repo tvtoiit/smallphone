@@ -1,11 +1,11 @@
 import OrderProduct from '../OrderProduct';
 import styles from './Cart.module.scss';
 import classNames from 'classnames/bind';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState  } from 'react';
-import { uses, delete_cart, checkDetails } from '../../assets/images';
+import { uses, delete_cart, checkDetails, cartEmpty } from '../../assets/images';
 
 const cx = classNames.bind(styles);
 function Cart() {
@@ -67,7 +67,9 @@ function Cart() {
     
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('l-12 m-12 c-12')}>
+            {cart.length != 0 ?
+                (
+                <div className={cx('l-12 m-12 c-12')}>
                 <div className={cx('container-cart')}>
                     <div className={cx('nav-cart')}>
                         <NavLink to='/' className={cx('buy-more')}>
@@ -81,23 +83,19 @@ function Cart() {
                     </div>
                     <div className={cx('container-inner')}>
                         <div className={cx('list-products')}>
-
                             {cart.map((item, index) => (
-                            
                             <div key={index} className={cx('product-cart1')}>
                                 <div className={cx('product-cart')}>
                                     <div className={cx('product-image')}>
                                         <div className={cx('box-content__cart')}>
-                                            <input type="checkbox" 
+                                            <input type="checkbox"
                                                 value={item.productId}
                                                 onChange={(e) => handleCheckboxChange(e, item.productId)}
                                                 />
                                             <NavLink className={cx('product-image__link')}>
                                                 <img className={cx('product-image__img')} src={item.image} alt="Ảnh điện thoại"/>
                                             </NavLink>
-
                                         </div>
-                                        
                                         <NavLink onClick={() => hanldDeleteCart(item.productId)} className={cx('cart-btn_delete')}>
                                             <img src={delete_cart.delete} alt='Icon xóa cart'/>
                                             <span className={cx('delete_btn-text')}>Xóa</span>
@@ -165,6 +163,17 @@ function Cart() {
                     <span className={cx('agree')}>Bằng cách đặt hàng, bạn đồng ý với Điều khoản sử dụng của Didongthongminh</span>
                 </div>
             </div> 
+                ) : (
+                <div className={cx('l-12 m-12 c-12')}>
+                    <div className={cx('cart-empty')}>
+                        <img src={cartEmpty.cartEmpty} className={cx('img-cart__cs')} alt='Anh cart empty'/>
+                    </div>
+                    <NavLink to={'/'} className={cx('button-empty')} >
+                        Mua hàng
+                    </NavLink>
+                </div>
+                )
+            }
         </div>
     );
 }

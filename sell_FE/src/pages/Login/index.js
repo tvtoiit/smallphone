@@ -22,10 +22,10 @@ const InputField = ({ type, placeholder, value, onChange, error }) => {
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email không hợp lệ').required('Email không được để trống'),
     password: Yup.string().required('Mật khẩu không được để trống'),
-   
 })
 
 function Login() {
+    document.title = "Đăng nhập";
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -41,7 +41,7 @@ function Login() {
                 username: email,
                 password: password
             }
-            const API = 'http://localhost:8888/api/v1/auth/signin';
+            const API = 'http://34.124.192.61:8888/api/v1/auth/signin';
             
             // Gửi POST request đến API để xác thực đăng nhập
             fetch(API, {
@@ -62,7 +62,7 @@ function Login() {
                 const accessToken = data.accessToken;
                 if (accessToken) {
                     localStorage.setItem('token', accessToken);
-                    const apiAdmin = `http://localhost:8888/api/v1/user_admin/${accessToken}`;
+                    const apiAdmin = `http://34.124.192.61:8888/api/v1/user_admin/${accessToken}`;
                     fetch(apiAdmin, {
                         method: 'GET',
                         headers: {

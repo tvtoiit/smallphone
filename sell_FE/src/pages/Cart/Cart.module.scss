@@ -288,6 +288,30 @@
 
 }
 
+.cart-empty {
+    display: flex;
+    justify-content: center;
+}   
+
+.img-cart__cs {
+    width: 50%;
+    height: 50%;
+}
+
+.button-empty {
+    width: 110px;
+    padding: 10px;
+    background-color: var(--primary-header);
+    color: #fff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.button-content__empty {
+
+}
+
 
 
 
@@ -324,6 +348,10 @@
 
     .User-login {
         font-size: 13px;
+    }
+
+    .product-image__img {
+        height: 65px;
     }
 
     .wrapper {

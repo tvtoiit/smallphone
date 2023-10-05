@@ -6,10 +6,11 @@ import {parameters, hotIcons, checkDetails } from '../../assets/images';
 const cx = classNames.bind(styles);
 
 function Detail() {
+    document.title='Chi tiết sản phẩm';
     const [data, setData] = useState([]);
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
     let { productId } = useParams();
-
+    
     const handleAddCart = () => {
         //Kiểm tra nếu trùng id trong cart thì tăng số lượng thôi
             const resultIdCart = cart.filter(item => {
@@ -19,6 +20,7 @@ function Detail() {
             const resultCart = resultIdCart.map(item => {
                 return item.number;
             })
+            
             
             if (resultCart > data.number) {
                 console.log('số lượng đã vượt quá cho phép');
@@ -49,7 +51,7 @@ function Detail() {
     }, [cart])
 
     useEffect(() => {
-        const api = `http://localhost:8888/api/v1/product-home/details/${productId}`;
+        const api = `http://34.124.192.61:8888/api/v1/product-home/details/${productId}`;
         fetch(api)
         .then(response => {
             if (!response) {
@@ -67,7 +69,6 @@ function Detail() {
     
     return (
         <div className={cx('wrapper')}>
-            
                 <div className={cx('inner')}>
                     <div className={cx('detail-header')}>
                        {data.title}

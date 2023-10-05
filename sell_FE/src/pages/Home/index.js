@@ -7,8 +7,9 @@ import { sell_item, sell_item2, iphones, products, startfill } from '../../asset
 const cx = classNames.bind(styles);
 function Home() {
     const [data, setData] = useState([]);
+    document.title = "Trang chủ";
     useEffect(() => {
-        const api = "http://localhost:8888/api/v1/product-home";
+        const api = "http://34.124.192.61:8888/api/v1/product-home";
         fetch(api)
         .then((response) => response.json())
         .then(data =>  setData(data))
@@ -23,7 +24,7 @@ function Home() {
                 <img className={cx('container-img')} src={sell_item2.sell} alt="hinh ảnh 2" />
             </div>
            {data.map((item, index) => (
-            <div key={`${item.productTypeId}_${index}`} className={cx('products_news col')}>
+            <div key={`${item.productTypeId}_${index}`} className={cx('products_news')}>
                 <div className={cx('products_menu_tabs')}>
                     <div className={cx('nav-tabs')}>
                         <div className={cx('item-tab')}>
@@ -32,7 +33,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <div className={cx('products_item_list col l-12 m-12 c-12')}>
+                <div className={cx('l-12 m-12 c-12')}>
                     <div className={cx('box_product')}>
                         <div className={cx('list-slide')}>
                         {item.products.map((product, indexProduct) => (

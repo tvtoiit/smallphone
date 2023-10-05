@@ -9,14 +9,16 @@ const cx = classNames.bind(styles);
 
 
 const OrderSchema = Yup.object().shape({
-    phone: Yup.string().required('Điện thoại không được để trống '),
+    phone: Yup.string().matches(/^[0-9]{10}$/, "Số điện thoại không đúng định dạng").required('Điện thoại không được để trống '),
+    gender: Yup.string().required('Bạn chưa chọn giới tính'),
 })
 
 function OrderProduct({ totalPrice, selectedProducts }) {
+    document.title = "Giỏ hàng";
     const [errors, setErrors] = useState({});
     const [errorMessageTotal, setErrorMessageToTal] = useState('');
     const [phone, setPhoneNumber] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState();
     const [province, setProvince] = useState([]);
     const [district, setDistrict] = useState([]);
     const [ward, setWard] = useState([]);
@@ -46,7 +48,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
       }, [district]);
 
     useEffect(() => {
-        const apiWard = `http://localhost:8888/api/v1/wrad/${optionWard}`;
+        const apiWard = `http://34.124.192.61:8888/api/v1/wrad/${optionWard}`;
         fetch(apiWard)
             .then((response) => response.json())
             .then(data => setWard(data))
@@ -54,7 +56,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
     }, [optionWard])
 
     useEffect(() => {
-        const api = `http://localhost:8888/api/v1/province`;
+        const api = `http://34.124.192.61:8888/api/v1/province`;
         fetch(api)
         .then(response => response.json())
         .then(data => setProvince(data))
@@ -62,7 +64,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
     }, []);
 
     useEffect(() => {
-        const api = `http://localhost:8888/api/v1/district/${optionedProvince}`;
+        const api = `http://34.124.192.61:8888/api/v1/district/${optionedProvince}`;
         fetch(api)
             .then(response => response.json())
             .then(data => setDistrict(data))
@@ -97,7 +99,7 @@ function OrderProduct({ totalPrice, selectedProducts }) {
       
           setErrors({}); // Đặt lỗi về rỗng (nếu dữ liệu hợp lệ)
       
-          const apiCreateOrder = "http://localhost:8888/api/v1/order-user/create";
+          const apiCreateOrder = "http://34.124.192.61:8888/api/v1/order-user/create";
           const requestBody = {
             phoneNumber: phone,
             address: `${optionedProvince}-${optionWard}-${optionDistrict}`,
@@ -145,22 +147,46 @@ function OrderProduct({ totalPrice, selectedProducts }) {
           console.error("There was a problem with the fetch operation:", error);
         }
       };
-      
+
+      const Gender = [
+        {
+            id: 1,
+            name: "Nam"
+        },
+        {
+            id: 2,
+            name: "Nữ"
+        }
+      ]
 
     return (
         <div className={cx('l-12 m-12 c-12')}>
             <form className={cx('formPayment')}>
                 <h3 className={cx('h3_title')}>Thông tin mua hàng</h3>
+                {errors.gender && <div className={cx('error-message')}>{errors.gender}</div>}  
                 <div className={cx('content-form__cart')}>
-                    <label className={cx('gender1')} htmlFor="gender1">
-                        <input type="radio" onChange={(event) => setGender(event.target.value)} checked id="gender1" name="gender" value="1"/>
+                    {Gender.map(gtGender => (
+                        <div key={gtGender.id}>
+                            <input 
+                                type="radio"
+                                checked = {gender === gtGender.id}
+                                onChange={() => setGender(gtGender.id)}
+                            />
+                            <span className={cx('gender-span')}>{gtGender.name}</span>
+                        </div>
+                    ))}
+                    
+                      
+                    {/* <label className={cx('gender1')} htmlFor="gender1">
+                        <input type="radio" onChange={(event) => setGender(event.target.value)} checked  id="gender1" name="gender" value="1"/>
                         <span className={cx('gender-span')}>Anh</span>
                     </label>
                     <label className={cx('gender1')} htmlFor="gender0">
                         <input type="radio"  onChange={(event) => setGender(event.target.value)} id="gender0" name="gende" value="0" />
                         <span className={cx('gender-span')}>Chị</span>
-                    </label>
+                    </label> */}
                 </div>
+                
                 <div className={cx('l-12')}>
                     <div className={cx('content-input__info')}>
                         <div className={cx('l-6 m-6 c-12')}>

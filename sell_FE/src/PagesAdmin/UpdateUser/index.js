@@ -4,7 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect,useState, useReducer } from 'react';
 import styles from './Update.module.scss';
 import classNames from 'classnames/bind';
-import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 
@@ -123,7 +122,6 @@ const TextInput = ({children}) => {
 }
 
 function AddUser() {
-  const [dataIdUser, setDataIdUser] = useState([]);
   const accessToken = localStorage.getItem('token');
   const location  = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -135,7 +133,7 @@ function AddUser() {
   console.log(fullName, phoneNumber,email,address,status,createdAt,updatedAt,accountId,role);
   const [dataGetRoleAll, setDataGetRole] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8888/api/v1/role', {
+    fetch('http://34.124.192.61:8888/api/v1/role', {
       method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -154,7 +152,7 @@ function AddUser() {
 
   useEffect(() => {
     if (idUser) {
-      const apiGet = `http://localhost:8888/api/v1/user_admin/${accessToken}`;
+      const apiGet = `http://34.124.192.61:8888/api/v1/user_admin/${accessToken}`;
       fetch(apiGet, {
         method: 'GET',
           headers: {
@@ -182,9 +180,8 @@ function AddUser() {
         })
     }
   }, [idUser])
-  let navigater = useNavigate();
   const handleUpdateUser = () => {
-      const apiUpdateUser = `http://localhost:8888/api/v1/user_admin/${idUser}`;
+      const apiUpdateUser = `http://34.124.192.61:8888/api/v1/user_admin/${idUser}`;
       const dataIdUser = {
         fullName: fullName,
         phoneNumber: phoneNumber,
@@ -330,5 +327,4 @@ function AddUser() {
 
     );
 }
-
 export default AddUser;

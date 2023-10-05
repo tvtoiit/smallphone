@@ -122,7 +122,7 @@ function Addproduct() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [apiGetId, setApiGetId] = useState([]);
 
-  const {data} = useCustomApi('http://localhost:8888/api/v1/producttypes');
+  const {data} = useCustomApi('http://34.124.192.61:8888/api/v1/producttypes');
 
   const {title, price,discountCode,quantity, releaseYear,productType,config,selectedImage,editorHtml} = state;
  
@@ -133,7 +133,7 @@ function Addproduct() {
   const navigater = useNavigate();
   useEffect(() => {
   if (productId) {
-    fetch(`http://localhost:8888/api/v1/product-home/details/${productId}`)
+    fetch(`http://34.124.192.61:8888/api/v1/product-home/details/${productId}`)
     .then(response => {
       return response.json();
     })
@@ -167,7 +167,7 @@ function Addproduct() {
     formData.append('configId', config);
     formData.append('description', editorHtml);
     
-    const apiAddProduct = 'http://localhost:8888/api/v1/product_admin/create';
+    const apiAddProduct = 'http://34.124.192.61:8888/api/v1/product_admin/create';
     const accessToken = localStorage.getItem('token');
     fetch(apiAddProduct, {
         method: 'POST',
@@ -202,7 +202,7 @@ function Addproduct() {
     formData.append('configId', config);
     formData.append('description', editorHtml);
     
-    const apiUpdateProduct = `http://localhost:8888/api/v1/product_admin/update/${productId}`;
+    const apiUpdateProduct = `http://34.124.192.61:8888/api/v1/product_admin/update/${productId}`;
     const accessToken = localStorage.getItem('token');
     fetch(apiUpdateProduct, {
         method: 'PUT',
@@ -350,8 +350,6 @@ function Addproduct() {
             )
           )}
         </div>
-        
-        
         <div className={cx('editor-container')}>
         <TextInput>Chi tiết sản phẩm:</TextInput>
           <ReactQuill

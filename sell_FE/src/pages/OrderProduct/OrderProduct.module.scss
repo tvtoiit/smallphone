@@ -10,6 +10,7 @@
 
 .content-form__cart {
     width: 100%;
+    display: flex;
 }
 
 .gender1 {
@@ -20,7 +21,7 @@
 }
 
 .gender-span {
-    padding-left: 5px;
+    padding: 0 10px;
     cursor: pointer;
 }
 
@@ -43,9 +44,7 @@
     flex-wrap: wrap;
 }
 
-.col-md-12 {
-    display: flex;
-}
+
 
 .tabReceive {
     background: #F0F0F0;
@@ -148,4 +147,36 @@
     float: left;
     width: 100%;
     margin-top: 10px;
+}
+
+/* pc */
+@media (min-width: 64em) {
+    .col-md-12 {
+        display: flex;
+    }   
+}
+
+/* tablet and pc */
+@media (min-width: 63.93em) and (max-width: 77.5em) {
+    .col-md-12 {
+        display: flex;
+    }
+}
+@media (max-width: 77.5em) {
+    
+}
+
+/* tablet */
+@media (min-width: 46.25em) and (max-width: 63.93em) {
+    
+}
+
+/* mobile */
+@media (max-width: 46.18em) {
+    
+}
+
+/* mobile and tablet*/
+@media (max-width: 63.9em) {
+    
 }

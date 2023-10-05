@@ -16,13 +16,15 @@ const InputFiled = ({ placeholder, value, onChange, error }) => {
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required('Bạn chưa nhập họ và tên'),
-    phone: Yup.string().required('Bạn chưa nhập số điện thoại'),
+    phone: Yup.string()
+        .matches(/^[0-9]{10}$/, 'Số điện thoại không đúng định dạng')
+        .required('Bạn chưa nhập số điện thoại'),
     email: Yup.string().email('Email không đúng định dạng').required('Bạn chưa nhập email'),
     password: Yup.string().required('Bạn chưa nhập password'),
 })
 
 function Register({ onRegisterSuccess }) {
-
+    document.title = "Đăng kí";
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -42,7 +44,7 @@ function Register({ onRegisterSuccess }) {
                 }
             }
     
-            const api = "http://localhost:8888/api/v1/auth/signupuser";
+            const api = "http://34.124.192.61:8888/api/v1/auth/signupuser";
             fetch(api, {
                 method: 'POST',
                 headers: {

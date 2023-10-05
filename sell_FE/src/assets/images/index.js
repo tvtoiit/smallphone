@@ -130,6 +130,14 @@ const iconLogoMobile = {
     iconMobi: require('../images/logo_1648529142.svg').default,
 };
 
+const iconNavMobile = {
+    iconMobiNav: require('../images/icon_mobile.svg').default,
+};
+
+const cartEmpty = {
+    cartEmpty: require('../images/cart-empty.svg').default,
+};
+
 export {
     cate_btn,
     call_btn,
@@ -162,7 +170,9 @@ export {
     delete_cart,
     avatas,
     iconGiam,
-    iconLogoMobile
+    iconLogoMobile,
+    iconNavMobile,
+    cartEmpty
 };
 
 export default images;

@@ -1,10 +1,11 @@
-.wrapper {
-    margin-top: 60px;
-}
-
 .products_menu_tabs {
     background: #fff;
     margin-bottom: 5px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
 }
 
 .nav-tabs {
@@ -200,13 +201,12 @@
 
 .products_news {
     width: 100%;
-    
 }
 
 /* pc */
 @media (min-width: 64em) {
     .wrapper {
-        width: 1200px;
+        margin: 65px 80px 0;
     }
 }
 
@@ -236,6 +236,10 @@
 
 /* mobile and tablet*/
 @media (max-width: 63.9em) {
+    .products_news {
+        margin-top: 65px;
+    }
+
     .container-img {
         display: none;
     }

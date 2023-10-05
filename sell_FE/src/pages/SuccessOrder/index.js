@@ -12,7 +12,7 @@ function SuccessOrder() {
         <div className={cx('wrapper')}>
             <div className={cx('l-12 m-12 c-12')}>
                 <div className={cx('container-order')}>
-                    <img className={cx('container-img')} src={ressut}/>
+                    <img className={cx('container-img')} src={ressut} alt='hinh anh dat hang thanh cong'/>
                     <div className={cx('success-text')}>Đặt hàng thành công</div>
                 </div>
                 <div className={cx('button')}>

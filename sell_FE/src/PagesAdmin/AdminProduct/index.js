@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 function AdminProduct() {
     let navigater = useNavigate();
-    const {data} = CustomApi('http://localhost:8888/api/v1/product-home');
+    const {data} = CustomApi('http://34.124.192.61:8888/api/v1/product-home');
 
     const hanldAddProduct = () => {
         navigater('/addproduct');
@@ -16,12 +16,24 @@ function AdminProduct() {
         navigater(`/addproduct?productId=${data}`)
     }
 
+    const handleDeleteProduct = (dataId) => {
+        const accessToken = localStorage.getItem('token');
+            const apiIdDelete = `http://34.124.192.61:8888/api/v1/product_admin/${dataId}`;
+            fetch(apiIdDelete, {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Accept': 'application/json'
+                },
+        }).then (response => response.json()); 
+    }
+
     const renderActions = (idProduct) => {
         return (
         <td className={cx('inner-btn')}>
             <input value='Thêm' onClick={hanldAddProduct} type='button' className={cx('btn-add')}/>
             <input value='Sửa' onClick={() => handleUpdateProduct(idProduct)} type='button' className={cx('btn-update')}/>
-            <input value='Xóa' type='button' className={cx('btn-delete')}/>
+            <input value='Xóa' type='button' onClick={() => handleDeleteProduct(idProduct)} className={cx('btn-delete')}/>
         </td>);
     }
     return (
@@ -45,7 +57,7 @@ function AdminProduct() {
                    {data.map((item, index) => (
                         item.products.map((itemproduct,subIndex) => (
                         <tr key={`${index} - ${subIndex}`}
-                            className={index % 2 === 0 ? cx('even-row') : cx('odd-row')}
+                            className={index % 2 == 0 ? cx('even-row') : cx('odd-row')}
                         >
                             <td>{index++}</td>
                             <td>{itemproduct.title}</td>
