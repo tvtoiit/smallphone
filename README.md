@@ -6,9 +6,11 @@ Mục tiêu của dự án là học hỏi, thử nghiệm và phát triển k�
 và tích hợp các chức năng web. Dự án đã được triển khai và có sẵn để sử dụng tại địa chỉ sau:
 
 Link trang web chính: https://didongthongminh.vn/
+
 Link trang web clone: http://34.124.192.61/
 
 **II. Cách cài đặt và sử dụng**
+
 **A. Backend(spring boot)**
 Bước 1: Cài đặt Java Development Kit (JDK)
 
